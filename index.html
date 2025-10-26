@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Phet — Personal Habit & Expense Tracker (Preview)</title>
+  <link rel="stylesheet" href="phet.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Phet — Personal Habit & Expense Tracker (Preview)</h1>
+      <div class="small muted">No backend — uses browser localStorage • works in this preview</div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT: main area -->
+      <div class="card panel">
+        <!-- Auth area -->
+        <div id="auth" class="auth">
+          <div id="landing" class="landing">
+            <h3>Welcome</h3>
+            <p class="small muted">Signup or login to start tracking your expenses.</p>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button id="showSignup" class="showsign">Signup</button>
+              <button id="showLogin" class="btn-ghost">Login</button>
+            </div>
+          </div>
+
+          <form id="signupForm" class="hidden">
+            <h3>Create account</h3>
+            <input id="suEmail" placeholder="email (must include @gmail.com)" />
+            <input id="suUser" placeholder="username (min 8 chars)" />
+            <input id="suPass" placeholder="password (min 6 chars)" type="password" />
+            <div style="display:flex;gap:8px;margin-top:6px">
+              <button type="button" id="doSignup">Create</button>
+              <button type="button" id="backFromSignup" class="btn-ghost">Back</button>
+            </div>
+            <div id="suMsg" class="small muted"></div>
+          </form>
+
+          <form id="loginForm" class="hidden">
+            <h3>Login</h3>
+            <input id="liEmail" placeholder="email" />
+            <input id="liPass" placeholder="password" type="password" />
+            <div style="display:flex;gap:8px;margin-top:6px">
+              <button type="button" id="doLogin">Login</button>
+              <button type="button" id="backFromLogin" class="btn-ghost">Back</button>
+            </div>
+            <div id="liMsg" class="small muted"></div>
+          </form>
+        </div>
+
+        <!-- Dashboard (hidden until login) -->
+        <div id="dashboard" class="hidden">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <h3 id="welcomeUser">Hello</h3>
+              <div class="small muted">Manage expenses, budgets and categories</div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button id="logout" class="btn-ghost">Logout</button>
+              <button id="deleteAccount" class="btn-ghost">Delete account</button>
+            </div>
+          </div>
+
+          <div class="top-stats" style="margin-top:12px">
+            <div class="stat">
+              <div class="small muted">Total spent</div>
+              <div id="statTotal">₦0</div>
+            </div>
+            <div class="stat">
+              <div class="small muted">Remaining (budget)</div>
+              <div id="statRemain">₦0</div>
+            </div>
+            <div class="stat">
+              <div class="small muted">Entries</div>
+              <div id="statEntries">0</div>
+            </div>
+          </div>
+
+          <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+
+          <!-- Add expense -->
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px">
+              <h4>Add expense</h4>
+              <div class="small muted">Categories are reusable — you can create new ones</div>
+              <form id="addForm">
+                <select id="categorySelect"></select>
+                <input id="amount" placeholder="amount e.g. 1200" />
+                <input id="note" placeholder="note (optional)" />
+                <div style="display:flex;gap:8px;margin-top:6px">
+                  <button type="button" id="addBtn">Add</button>
+                  <button type="button" id="newCatBtn" class="btn-ghost">Add category</button>
+                </div>
+                <div id="addMsg" class="small muted"></div>
+              </form>
+            </div>
+
+            <!-- Quick budget control -->
+            <div style="width:320px">
+              <h4>Budget</h4>
+              <div class="small muted">Set or view your daily budget</div>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <input id="budgetInput" placeholder="₦10000" />
+                <button id="setBudget" class="btn-ghost">Save</button>
+              </div>
+              <div id="budgetMsg" class="small muted" style="margin-top:8px"></div>
+
+              <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+              <h4>Summary</h4>
+              <div id="summaryBox" class="list"></div>
+            </div>
+          </div>
+
+          <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+
+          <div style="display:flex;gap:12px">
+            <div style="flex:1">
+              <h4>All expenses</h4>
+              <div id="expensesList" class="list"></div>
+            </div>
+
+            <div style="width:260px">
+              <h4>Search / Manage</h4>
+              <input id="searchInput" placeholder="Search category" />
+              <div style="display:flex;gap:8px;margin-top:6px">
+                <button id="searchBtn" class="btn-ghost">Find</button>
+                <button id="clearBtn" class="btn-ghost">Clear all (local)</button>
+              </div>
+              <div id="searchMsg" class="small muted"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: help / tips card -->
+      <div class="card panel">
+        <h4>How this preview works</h4>
+        <ol class="small muted">
+          <li>Create an account (email must include <code>@gmail.com</code> for this demo).</li>
+          <li>Login, add expenses and categories. Data is saved to <code>localStorage</code>.</li>
+          <li>Budget warns when you go over but still records entries.</li>
+        </ol>
+
+        <div style="margin-top:12px">
+          <h4>Tips</h4>
+          <ul class="small muted">
+            <li>Try adding multiple categories and expenses.</li>
+            <li>Use the "Clear all" button to reset local data.</li>
+          </ul>
+        </div>
+
+        <div class="footer">Preview created from your Python app logic — tell me what to change</div>
+      </div>
+    </div>
+  </div>
+  <script src="phet.js"></script>
+</body>
+</html>
