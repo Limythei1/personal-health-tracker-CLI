@@ -167,3 +167,35 @@ button {
     padding: 12px;
   }
 }
+/* --- attribution / credit styling (add to phet.css) --- */
+.credit {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0.95;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.01);
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* make sure the link looks subtle but clickable */
+.credit a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.credit a:hover,
+.credit a:focus {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* small screens — keep it compact */
+@media (max-width: 480px) {
+  .credit { font-size: 12px; padding: 6px 8px; }
+}
